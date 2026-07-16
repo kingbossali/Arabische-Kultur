@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🕌 Ein Tag in der arabischen Welt 🌙</title>
+<style>
+  :root{
+    --orange: #E0762B;
+    --orange-dark: #B85A1A;
+    --yellow: #F2C14E;
+    --turquoise: #14807A;
+    --turquoise-dark: #0C5C58;
+    --blue-deep: #1C2E4A;
+    --sand: #E8C9A0;
+    --white: #FFFFFF;
+    --cream: #FFF8EE;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Verdana, Arial, sans-serif;
+    background: linear-gradient(160deg, var(--turquoise-dark) 0%, var(--turquoise) 40%, var(--sand) 100%);
+    overflow-x: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px 16px 40px;
+  }
+
+  .screen {
+    width: 100%;
+    max-width: 980px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.45s ease;
+  }
+  .screen.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .progress-wrap {
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .progress-dot {
+    flex: 1;
+    height: 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.35);
+    transition: background 0.3s ease;
+  }
+  .progress-dot.done { background: var(--yellow); }
+
+  h1 {
+    color: var(--white);
+    text-align: center;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    margin: 6px 0 8px;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+  h2 {
+    color: var(--white);
+    text-align: center;
+    font-size: clamp(1.3rem, 3.8vw, 1.9rem);
+    margin: 4px 0 22px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+  p.subtitle {
+    color: var(--cream);
+    text-align: center;
+    font-size: clamp(1rem, 2.6vw, 1.2rem);
+    max-width: 650px;
+    margin: 0 0 26px;
+    line-height: 1.5;
+  }
+
+  .emoji-hero {
+    font-size: clamp(3.2rem, 12vw, 5rem);
+    margin-bottom: 6px;
+    filter: drop-shadow(0 6px 10px rgba(0,0,0,0.3));
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    width: 100%;
+  }
+  @media (max-width: 480px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .choice-card {
+    background: var(--white);
+    border-radius: 22px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 4px solid transparent;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    min-height: 130px;
+  }
+  .choice-card:active {
+    transform: scale(0.95);
+    border-color: var(--orange);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .choice-card .icon {
+    font-size: clamp(2.1rem, 7vw, 3rem);
+    line-height: 1;
+  }
+  .choice-card .label {
+    font-size: clamp(0.92rem, 2.6vw, 1.1rem);
+    font-weight: 700;
+    color: var(--blue-deep);
+    text-align: center;
+  }
+  .choice-card .sublabel {
+    font-size: 0.75rem;
+    color: #6b6b6b;
+    text-align: center;
+    margin-top: -4px;
+  }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 60px;
+    padding: 22px 48px;
+    font-size: clamp(1.2rem, 3.6vw, 1.5rem);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.3);
+    margin-top: 10px;
+    transition: transform 0.15s ease;
+  }
+  .start-btn:active { transform: scale(0.95); }
+
+  .result-card {
+    background: var(--white);
+    border-radius: 26px;
+    padding: 30px 26px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.28);
+    width: 100%;
+    border-top: 10px solid var(--orange);
+  }
+  .result-title {
+    color: var(--turquoise-dark);
+    font-size: clamp(1.3rem, 3.8vw, 1.8rem);
+    font-weight: 800;
+    margin: 0 0 4px;
+    text-align: center;
+  }
+  .result-tags {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .tag {
+    background: var(--yellow);
+    color: var(--blue-deep);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .result-text {
+    color: #2b2b2b;
+    font-size: clamp(1.02rem, 2.6vw, 1.2rem);
+    line-height: 1.65;
+    text-align: left;
+  }
+  .result-text p { margin: 0 0 14px; }
+  .result-text p:last-child { margin-bottom: 0; }
+
+  .fact-box {
+    margin-top: 18px;
+    background: var(--cream);
+    border-left: 6px solid var(--orange);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .fact-box .fact-title {
+    font-weight: 800;
+    color: var(--orange-dark);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .fact-box .fact-text {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .reset-btn {
+    margin-top: 34px;
+    width: 100%;
+    max-width: 980px;
+    background: linear-gradient(135deg, var(--turquoise), var(--turquoise-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 24px;
+    padding: 26px 20px;
+    font-size: clamp(1.3rem, 4vw, 1.7rem);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+  }
+  .reset-btn:active { transform: scale(0.96); }
+
+  .deco-row {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    margin: 10px 0 26px;
+    letter-spacing: 6px;
+    opacity: 0.9;
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .step-label {
+    color: var(--yellow);
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-dot" id="dot1"></div>
+    <div class="progress-dot" id="dot2"></div>
+    <div class="progress-dot" id="dot3"></div>
+    <div class="progress-dot" id="dot4"></div>
+    <div class="progress-dot" id="dot5"></div>
+    <div class="progress-dot" id="dot6"></div>
+  </div>
+
+  <!-- WELCOME -->
+  <div class="screen active" id="screen-welcome">
+    <div class="emoji-hero">🕌🌙⭐</div>
+    <h1>Willkommen in der arabischen Welt</h1>
+    <p class="subtitle">Wähle eines von 22 arabischen Ländern, schlüpfe in das Leben eines Kindes und entdecke, wie unterschiedlich der Alltag von Marokko bis zum Jemen, von Mauretanien bis zum Irak sein kann. Triff sechs Entscheidungen und erlebe deine ganz persönliche Geschichte!</p>
+    <div class="deco-row">🇩🇿🇧🇭🇰🇲🇩🇯🇪🇬🇮🇶🇯🇴🇰🇼🇱🇧🇱🇾🇲🇷🇲🇦🇴🇲🇵🇸🇶🇦🇸🇦🇸🇴🇸🇩🇸🇾🇹🇳🇦🇪🇾🇪</div>
+    <button class="start-btn" onclick="goToStep(1)">🚀 Abenteuer starten</button>
+  </div>
+
+  <!-- STEP 1: COUNTRY -->
+  <div class="screen" id="screen-1">
+    <div class="step-label">Schritt 1 von 6</div>
+    <h2>In welchem Land lebst du?</h2>
+    <div class="card-grid" id="countryGrid"></div>
+  </div>
+
+  <!-- STEP 2: GENDER -->
+  <div class="screen" id="screen-2">
+    <div class="step-label">Schritt 2 von 6</div>
+    <h2>Wer bist du?</h2>
+    <div class="card-grid">
+      <div class="choice-card" onclick="select('gender','maedchen')">
+        <div class="icon">👧</div>
+        <div class="label">Ein Mädchen</div>
+      </div>
+      <div class="choice-card" onclick="select('gender','junge')">
+        <div class="icon">👦</div>
+        <div class="label">Ein Junge</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: LOCATION (dynamic per country) -->
+  <div class="screen" id="screen-3">
+    <div class="step-label">Schritt 3 von 6</div>
+    <h2>Wo genau lebst du?</h2>
+    <div class="card-grid" id="locationGrid"></div>
+  </div>
+
+  <!-- STEP 4: WEALTH -->
+  <div class="screen" id="screen-4">
+    <div class="step-label">Schritt 4 von 6</div>
+    <h2>Wie lebt deine Familie?</h2>
+    <div class="card-grid">
+      <div class="choice-card" onclick="select('leben','wohlhabend')">
+        <div class="icon">💎</div>
+        <div class="label">Wohlhabend</div>
+      </div>
+      <div class="choice-card" onclick="select('leben','mittelschicht')">
+        <div class="icon">🏡</div>
+        <div class="label">Mittelschicht</div>
+      </div>
+      <div class="choice-card" onclick="select('leben','einfach')">
+        <div class="icon">🌾</div>
+        <div class="label">Einfache Verhältnisse</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: DAY TYPE -->
+  <div class="screen" id="screen-5">
+    <div class="step-label">Schritt 5 von 6</div>
+    <h2>Was für ein Tag ist heute?</h2>
+    <div class="card-grid">
+      <div class="choice-card" onclick="select('tag','schultag')">
+        <div class="icon">🏫</div>
+        <div class="label">Ein ganz normaler Schultag</div>
+      </div>
+      <div class="choice-card" onclick="select('tag','fest')">
+        <div class="icon">🎉</div>
+        <div class="label">Ein Fest oder Feiertag</div>
+      </div>
+      <div class="choice-card" onclick="select('tag','ferien')">
+        <div class="icon">☀️</div>
+        <div class="label">Ein Ferientag</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6: HOBBY -->
+  <div class="screen" id="screen-6">
+    <div class="step-label">Schritt 6 von 6</div>
+    <h2>Was ist deine Lieblingsbeschäftigung?</h2>
+    <div class="card-grid">
+      <div class="choice-card" onclick="select('hobby','fussball')">
+        <div class="icon">⚽</div>
+        <div class="label">Fußball</div>
+      </div>
+      <div class="choice-card" onclick="select('hobby','tanz')">
+        <div class="icon">🪘</div>
+        <div class="label">Musik &amp; Tanz</div>
+      </div>
+      <div class="choice-card" onclick="select('hobby','kunst')">
+        <div class="icon">🎨</div>
+        <div class="label">Kunsthandwerk</div>
+      </div>
+      <div class="choice-card" onclick="select('hobby','kochen')">
+        <div class="icon">🍲</div>
+        <div class="label">Kochen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="screen-result">
+    <div class="emoji-hero" id="resultEmoji">🕌</div>
+    <div class="result-card">
+      <div class="result-title" id="resultTitle">Dein Alltag</div>
+      <div class="result-tags" id="resultTags"></div>
+      <div class="result-text" id="resultText"></div>
+      <div class="fact-box">
+        <div class="fact-title">🤯 Krasser Fakt</div>
+        <div class="fact-text" id="factText"></div>
+      </div>
+    </div>
+    <button class="reset-btn" onclick="resetApp()">🔄 Zurück zum Start / Nächster Spieler</button>
+  </div>
+
+</div>
+
+<script>
+  const TOTAL_STEPS = 6;
+  const state = { land: null, gender: null, ort: null, leben: null, tag: null, hobby: null };
+
+  // ---- ALLE 22 LÄNDER DER ARABISCHEN LIGA ----
+  const countries = [
+    { key: 'algerien',    flag: '🇩🇿', name: 'Algerien' },
+    { key: 'bahrain',     flag: '🇧🇭', name: 'Bahrain' },
+    { key: 'komoren',     flag: '🇰🇲', name: 'Komoren' },
+    { key: 'dschibuti',   flag: '🇩🇯', name: 'Dschibuti' },
+    { key: 'aegypten',    flag: '🇪🇬', name: 'Ägypten' },
+    { key: 'irak',        flag: '🇮🇶', name: 'Irak' },
+    { key: 'jordanien',   flag: '🇯🇴', name: 'Jordanien' },
+    { key: 'kuwait',      flag: '🇰🇼', name: 'Kuwait' },
+    { key: 'libanon',     flag: '🇱🇧', name: 'Libanon' },
+    { key: 'libyen',      flag: '🇱🇾', name: 'Libyen' },
+    { key: 'mauretanien', flag: '🇲🇷', name: 'Mauretanien' },
+    { key: 'marokko',     flag: '🇲🇦', name: 'Marokko' },
+    { key: 'oman',        flag: '🇴🇲', name: 'Oman' },
+    { key: 'palaestina',  flag: '🇵🇸', name: 'Palästina' },
+    { key: 'katar',       flag: '🇶🇦', name: 'Katar' },
+    { key: 'saudi',       flag: '🇸🇦', name: 'Saudi-Arabien' },
+    { key: 'somalia',     flag: '🇸🇴', name: 'Somalia' },
+    { key: 'sudan',       flag: '🇸🇩', name: 'Sudan' },
+    { key: 'syrien',      flag: '🇸🇾', name: 'Syrien' },
+    { key: 'tunesien',    flag: '🇹🇳', name: 'Tunesien' },
+    { key: 'vae',         flag: '🇦🇪', name: 'Vereinigte Arabische Emirate' },
+    { key: 'jemen',       flag: '🇾🇪', name: 'Jemen' }
+  ];
+
+  // ---- WOHNORTE pro Land (immer 'stadt' & 'land') ----
+  const locations = {
+    algerien:    [{ key:'stadt', icon:'🏙️', label:'Algier', sub:'Hauptstadt am Mittelmeer' }, { key:'land', icon:'🏜️', label:'Sahara', sub:'Wüste & Oasen' }],
+    bahrain:     [{ key:'stadt', icon:'🏙️', label:'Manama', sub:'Inselhauptstadt' }, { key:'land', icon:'🦪', label:'Küstendorf', sub:'Perlentaucher-Tradition' }],
+    komoren:     [{ key:'stadt', icon:'🏙️', label:'Moroni', sub:'Hauptstadt auf Grande Comore' }, { key:'land', icon:'🌋', label:'Vulkandorf', sub:'Am Fuß des Karthala' }],
+    dschibuti:   [{ key:'stadt', icon:'🏙️', label:'Dschibuti-Stadt', sub:'Hafenstadt am Roten Meer' }, { key:'land', icon:'🏜️', label:'Afar-Region', sub:'Nomadenland' }],
+    aegypten:    [{ key:'stadt', icon:'🏙️', label:'Kairo', sub:'Großstadt am Nil' }, { key:'land', icon:'🌾', label:'Dorf am Nil', sub:'Landwirtschaft' }],
+    irak:        [{ key:'stadt', icon:'🏙️', label:'Bagdad', sub:'Hauptstadt am Tigris' }, { key:'land', icon:'🌾', label:'Marschland', sub:'Zwischen Euphrat & Tigris' }],
+    jordanien:   [{ key:'stadt', icon:'🏙️', label:'Amman', sub:'Hauptstadt' }, { key:'land', icon:'🏜️', label:'Nähe Petra', sub:'Wüstenstadt-Region' }],
+    kuwait:      [{ key:'stadt', icon:'🏙️', label:'Kuwait-Stadt', sub:'Ölmetropole am Golf' }, { key:'land', icon:'🏜️', label:'Wüste', sub:'Beduinen-Tradition' }],
+    libanon:     [{ key:'stadt', icon:'🏙️', label:'Beirut', sub:'Hauptstadt am Meer' }, { key:'land', icon:'⛰️', label:'Zedern-Gebirge', sub:'Bergdorf' }],
+    libyen:      [{ key:'stadt', icon:'🏙️', label:'Tripolis', sub:'Hauptstadt am Mittelmeer' }, { key:'land', icon:'🏜️', label:'Ghadames', sub:'Oasenstadt am Wüstenrand' }],
+    mauretanien: [{ key:'stadt', icon:'🏙️', label:'Nouakchott', sub:'Hauptstadt am Atlantik' }, { key:'land', icon:'🐫', label:'Sahara', sub:'Nomadenfamilien' }],
+    marokko:     [{ key:'stadt', icon:'🏙️', label:'Marrakesch', sub:'Souks & Medina' }, { key:'land', icon:'⛰️', label:'Atlas-Gebirge', sub:'Berberdorf' }],
+    oman:        [{ key:'stadt', icon:'🏙️', label:'Maskat', sub:'Hauptstadt am Golf von Oman' }, { key:'land', icon:'🏔️', label:'Bergdorf', sub:'Terrassenfelder im Hadschar' }],
+    palaestina:  [{ key:'stadt', icon:'🏙️', label:'Ramallah', sub:'Stadt im Westjordanland' }, { key:'land', icon:'🫒', label:'Dorf', sub:'Olivenanbau' }],
+    katar:       [{ key:'stadt', icon:'🏙️', label:'Doha', sub:'Moderne Hauptstadt' }, { key:'land', icon:'🏜️', label:'Wüste', sub:'Beduinen-Erbe' }],
+    saudi:       [{ key:'stadt', icon:'🏙️', label:'Riad', sub:'Moderne Großstadt' }, { key:'land', icon:'🏜️', label:'Wüste', sub:'Beduinen-Gemeinschaft' }],
+    somalia:     [{ key:'stadt', icon:'🏙️', label:'Mogadischu', sub:'Hauptstadt am Indischen Ozean' }, { key:'land', icon:'🐪', label:'Nomadenland', sub:'Kamelhirten' }],
+    sudan:       [{ key:'stadt', icon:'🏙️', label:'Khartum', sub:'Am Zusammenfluss beider Nile' }, { key:'land', icon:'🌾', label:'Dorf am Nil', sub:'Landwirtschaft' }],
+    syrien:      [{ key:'stadt', icon:'🏙️', label:'Damaskus', sub:'Eine der ältesten Städte der Welt' }, { key:'land', icon:'🌾', label:'Dorf', sub:'Landwirtschaft im Umland' }],
+    tunesien:    [{ key:'stadt', icon:'🏙️', label:'Tunis', sub:'Hauptstadt am Mittelmeer' }, { key:'land', icon:'🏜️', label:'Tozeur', sub:'Oasenstadt am Sahara-Rand' }],
+    vae:         [{ key:'stadt', icon:'🏙️', label:'Dubai', sub:'Wolkenkratzer-Stadt' }, { key:'land', icon:'🏖️', label:'Küstendorf', sub:'Fischerei & Perlentauchen' }],
+    jemen:       [{ key:'stadt', icon:'🏙️', label:'Sanaa', sub:'Hauptstadt im Hochland' }, { key:'land', icon:'🏔️', label:'Bergdorf', sub:'Terrassenfelder' }]
+  };
+
+  // ---- BASISGESCHICHTEN: Land x Ort(stadt/land) x Leben ----
+  const baseStories = {
+    "algerien_stadt_wohlhabend": "Du lebst mit deiner Familie in einer eleganten Wohnung mit Blick auf die Bucht von Algier, ein Fahrer bringt dich morgens zur zweisprachigen Privatschule.",
+    "algerien_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in der Altstadt (Kasbah) von Algier, du gehst zu Fuß mit Freunden zur Schule, während deine Eltern in Büro und Geschäft arbeiten.",
+    "algerien_stadt_einfach": "Deine Familie lebt in einem einfachen Haus am Stadtrand von Algier, der Schulweg führt mit einem vollen Bus quer durch die Stadt, danach hilfst du am Marktstand deiner Mutter.",
+    "algerien_land_wohlhabend": "Deine Familie besitzt eine große Dattelpalmen-Oase am Rand der Sahara und ein komfortables Haus, ein Fahrer bringt dich zur Schule in der nächsten Oasenstadt.",
+    "algerien_land_mittelschicht": "Deine Familie bewirtschaftet einen kleinen Dattelgarten in einer Sahara-Oase, du gehst mit deinen Geschwistern zur Dorfschule und hilfst am Nachmittag bei der Bewässerung.",
+    "algerien_land_einfach": "Schon früh hilfst du, Wasser aus dem Brunnen der Oase zu schöpfen, der Schulweg führt über heißen Sand, oft mehr als eine Stunde zu Fuß.",
+
+    "bahrain_stadt_wohlhabend": "Deine Familie lebt in einer Luxuswohnung in Manama mit Blick auf den Golf, ein Fahrer bringt dich zur internationalen Schule, am Wochenende segelst du mit deinem Vater.",
+    "bahrain_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Manama, du fährst mit dem Schulbus zur staatlichen Schule, während deine Eltern im Bankwesen oder im Handel arbeiten.",
+    "bahrain_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Manamas, zur Schule fährst du mit einem vollen Bus, danach hilfst du in der kleinen Werkstatt deines Onkels.",
+    "bahrain_land_wohlhabend": "Deine Familie besitzt ein Boot für Perlentaucher-Touren und ein schönes Haus am Meer, du wirst in die Stadt zur Schule gefahren.",
+    "bahrain_land_mittelschicht": "Deine Familie betreibt ein kleines Fischerboot in einem Küstendorf Bahrains, du gehst zu Fuß mit Freunden zur Schule und hilfst nachmittags beim Sortieren des Fangs.",
+    "bahrain_land_einfach": "Schon früh hilfst du deinem Vater, die Fischernetze vorzubereiten, bevor du den Weg zur Dorfschule läufst, wo früher viele Familien vom Perlentauchen lebten.",
+
+    "komoren_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus mit Vanille- und Gewürzplantagen nahe Moroni, ein Fahrer bringt dich zur Schule in der Hauptstadt.",
+    "komoren_stadt_mittelschicht": "Deine Familie lebt in einem soliden Haus in Moroni, du gehst zu Fuß mit Freunden zur Schule, dein Vater arbeitet im Hafen, deine Mutter verkauft Gewürze auf dem Markt.",
+    "komoren_stadt_einfach": "Deine Familie lebt in einem einfachen Haus am Rand von Moroni, der Schulweg führt über staubige Straßen, danach hilfst du beim Sortieren von Vanilleschoten für den Verkauf.",
+    "komoren_land_wohlhabend": "Deine Familie besitzt Land am Fuß des Vulkans Karthala mit Ylang-Ylang-Plantagen und lebt in einem komfortablen Haus, du wirst zur Schule gefahren.",
+    "komoren_land_mittelschicht": "Deine Familie bewirtschaftet ein kleines Feld am Vulkanhang, du gehst mit deinen Geschwistern zur Dorfschule und hilfst beim Ernten von Kokosnüssen.",
+    "komoren_land_einfach": "Schon früh hilfst du, Feuerholz zu sammeln und Wasser zu holen, der Schulweg führt über vulkanisches Gestein, oft barfuß.",
+
+    "dschibuti_stadt_wohlhabend": "Deine Familie lebt in einem klimatisierten Haus in Dschibuti-Stadt, ein Fahrer bringt dich zur internationalen Schule, dein Vater arbeitet im großen Hafen.",
+    "dschibuti_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Dschibuti-Stadt, du gehst zu Fuß zur Schule, deine Eltern arbeiten im Handel und in der Verwaltung.",
+    "dschibuti_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel der Hauptstadt, zur Schule fährst du mit einem vollen Bus, danach hilfst du am kleinen Marktstand deiner Familie.",
+    "dschibuti_land_wohlhabend": "Deine Familie besitzt eine große Kamelherde und ein festes Haus am Rand der Afar-Region, du wirst zur nächsten Schule gefahren.",
+    "dschibuti_land_mittelschicht": "Deine Familie hält Kamele und Ziegen und lebt in einem einfachen, aber festen Haus, ein Schulbus holt dich an einem Sammelpunkt in der Wüste ab.",
+    "dschibuti_land_einfach": "Schon im Morgengrauen hilfst du, die Kamele zur Weide zu treiben, danach läufst du weit durch die heiße Ebene, um die Schule zu erreichen.",
+
+    "aegypten_stadt_wohlhabend": "Du lebst mit deiner Familie in einer modernen Hochhauswohnung im Neubauviertel New Cairo, weit weg vom Trubel der Altstadt. Ein Fahrer bringt dich jeden Morgen zu deiner zweisprachigen Privatschule, während zu Hause eine Haushälterin kocht und putzt.",
+    "aegypten_stadt_mittelschicht": "Deine Familie lebt in einer gemütlichen Wohnung nahe einem belebten Markt in Kairo. Du gehst mit Nachbarskindern zu Fuß zur staatlichen Schule, während deine Eltern beide berufstätig sind.",
+    "aegypten_stadt_einfach": "Deine Familie wohnt in einem einfachen Haus in einem dicht besiedelten Viertel Kairos. Der Schulweg dauert mit einem überfüllten Minibus fast eine Stunde, danach hilfst du oft am Straßenstand deines Vaters, der Koshari verkauft.",
+    "aegypten_land_wohlhabend": "Deine Familie besitzt große Felder am Nilufer und ein schönes Haus mit Garten voller Mangobäume. Ein Fahrer bringt dich zur Schule in der nächsten Stadt, während die meisten anderen Dorfkinder den langen Weg zu Fuß gehen.",
+    "aegypten_land_mittelschicht": "Deine Familie bewirtschaftet ein solides Stück Land am Nil und lebt in einem gemauerten Haus mit Blick auf die Felder. Du gehst mit deinen Geschwistern zur Dorfschule und hilfst danach bei der Ernte von Baumwolle oder Mais.",
+    "aegypten_land_einfach": "Noch vor Sonnenaufgang hilfst du deiner Familie, Wasser vom Nil zu holen und die Ziegen zu füttern. Der Schulweg führt fast eine Stunde über staubige Feldwege, danach hilfst du beim Ernten auf dem Feld eines Nachbarn.",
+
+    "irak_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in einem ruhigen Viertel Bagdads, ein Fahrer bringt dich zur Privatschule, am Nachmittag hast du Musikunterricht.",
+    "irak_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Bagdad nahe dem Tigris, du gehst mit Freunden zur Schule, dein Vater arbeitet als Ingenieur.",
+    "irak_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Bagdads, der Schulweg führt durch enge Gassen, danach hilfst du am Obst- und Gemüsestand deiner Familie.",
+    "irak_land_wohlhabend": "Deine Familie besitzt fruchtbares Ackerland zwischen Euphrat und Tigris und ein solides Haus, du wirst zur Schule in die nächste Stadt gefahren.",
+    "irak_land_mittelschicht": "Deine Familie bewirtschaftet ein Stück Land im Marschland des Zweistromlands, du fährst mit einem traditionellen Schilfboot zur Dorfschule.",
+    "irak_land_einfach": "Schon früh hilfst du beim Fischen und Sammeln von Schilf im Marschland, der Schulweg führt über schmale Wasserwege mit dem Boot.",
+
+    "jordanien_stadt_wohlhabend": "Deine Familie lebt in einem modernen Haus in West-Amman mit Garten und Poolzugang. Ein Fahrer bringt dich zu deiner Privatschule, am Nachmittag hast du Klavier- oder Sprachunterricht.",
+    "jordanien_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Amman. Du gehst mit deinen Geschwistern zur staatlichen Schule, während dein Vater als Lehrer und deine Mutter im Krankenhaus arbeitet.",
+    "jordanien_stadt_einfach": "Deine Familie lebt in einem einfachen Haus in der Altstadt von Amman. Zur Schule fährst du in einem geteilten Sammeltaxi, danach hilfst du in der kleinen Bäckerei deiner Familie.",
+    "jordanien_land_wohlhabend": "Deine Familie besitzt ein Reiseunternehmen mit Kamelen und Pferden für Touristen nahe der antiken Stadt Petra und lebt in einem komfortablen Haus. Du wirst in die nächste Stadt zur Schule gefahren, statt wie viele andere zu Fuß zu gehen.",
+    "jordanien_land_mittelschicht": "Deine Familie betreibt einen kleinen Souvenirladen nahe den Ruinen von Petra und lebt in einem soliden Haus aus Sandstein. Du gehst mit Freunden zur Dorfschule und hilfst am Nachmittag im Laden.",
+    "jordanien_land_einfach": "Schon vor der Schule hilfst du, Touristen auf Eseln durch die engen Schluchten von Petra zu begleiten. Danach läufst du einen langen Weg durch die Wüstenlandschaft zur Schule.",
+
+    "kuwait_stadt_wohlhabend": "Deine Familie lebt in einer Villa in Kuwait-Stadt, ein Fahrer bringt dich zur internationalen Schule, am Wochenende hast du Reitunterricht.",
+    "kuwait_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Kuwait-Stadt, du fährst mit dem Schulbus zur Schule, dein Vater arbeitet in der Ölindustrie.",
+    "kuwait_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel, zur Schule fährst du mit einem vollen Bus, danach hilfst du im kleinen Laden deines Onkels.",
+    "kuwait_land_wohlhabend": "Deine Familie besitzt ein großes Wüstencamp mit Geländewagen und Falken und ein Haus in der Stadt, du wirst weit zur Schule gefahren.",
+    "kuwait_land_mittelschicht": "Deine Familie hält Kamele und verbringt Wochenenden im Beduinen-Zelt in der Wüste, du besuchst eine Schule in der nächsten Kleinstadt.",
+    "kuwait_land_einfach": "Schon früh hilfst du, die Kamele deiner Familie zu versorgen, der Schulweg führt weit durch den Sand bis zur Hauptstraße.",
+
+    "libanon_stadt_wohlhabend": "Deine Familie lebt in einer Wohnung mit Meerblick in Beirut. Ein Fahrer bringt dich zu deiner zweisprachigen Privatschule, am Nachmittag hast du Segel- oder Musikunterricht.",
+    "libanon_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in einem lebendigen Viertel Beiruts. Du gehst zu Fuß mit Freunden zur Schule, während deine Eltern beide berufstätig sind.",
+    "libanon_stadt_einfach": "Deine Familie lebt in einer kleinen Wohnung in Beirut. Zur Schule fährst du in einem geteilten Sammeltaxi (Service), danach hilfst du am Manakish-Stand deiner Familie.",
+    "libanon_land_wohlhabend": "Deine Familie besitzt ein Weingut mit Blick auf die berühmten Zedernwälder im Libanongebirge und lebt in einem großen Steinhaus. Du wirst ins Tal zur Schule gefahren, während andere Dorfkinder den steilen Weg zu Fuß nehmen.",
+    "libanon_land_mittelschicht": "Deine Familie bewirtschaftet einen kleinen Apfel- und Kirschgarten im Gebirge und lebt in einem soliden Steinhaus. Du gehst mit deinen Geschwistern zur Dorfschule, oft durch dichten Nebel im Winter.",
+    "libanon_land_einfach": "Früh am Morgen hilfst du bei der Obsternte in den Terrassenfeldern des Gebirges. Der Schulweg führt über eine steile Bergstraße, die im Winter manchmal sogar verschneit ist.",
+
+    "libyen_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in Tripolis mit Blick aufs Mittelmeer, ein Fahrer bringt dich zur Privatschule.",
+    "libyen_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Tripolis, du gehst mit Freunden zur Schule, deine Eltern arbeiten im Handel.",
+    "libyen_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel von Tripolis, der Schulweg führt durch enge Gassen der Altstadt, danach hilfst du am Marktstand.",
+    "libyen_land_wohlhabend": "Deine Familie besitzt Palmenhaine in der Oasenstadt Ghadames und ein traditionelles Lehmhaus, du wirst zur Schule in die nächste Stadt gefahren.",
+    "libyen_land_mittelschicht": "Deine Familie bewirtschaftet einen Dattelgarten am Rand der Oase, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "libyen_land_einfach": "Schon früh hilfst du bei der Bewässerung der Palmen, der Schulweg führt über heißen Wüstensand, oft mehr als eine Stunde.",
+
+    "mauretanien_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in Nouakchott nahe dem Atlantik, ein Fahrer bringt dich zur Privatschule.",
+    "mauretanien_stadt_mittelschicht": "Deine Familie lebt in einem Haus in Nouakchott, du gehst zu Fuß zur Schule, dein Vater fährt mit dem berühmten Eisenerzzug zur Arbeit.",
+    "mauretanien_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Nouakchotts, der Schulweg führt über sandige Straßen, danach hilfst du am Fischmarkt am Hafen.",
+    "mauretanien_land_wohlhabend": "Deine Familie besitzt eine große Kamelherde und mehrere Geländewagen und lebt komfortabel am Rand der Sahara, du wirst weit zur Schule gefahren.",
+    "mauretanien_land_mittelschicht": "Deine Familie zieht mit einer kleinen Kamelherde durch die Sahara und schlägt zeitweise ein Zeltlager auf, ein Wanderlehrer unterrichtet euch mehrmals pro Woche.",
+    "mauretanien_land_einfach": "Schon im Morgengrauen hilfst du, die Kamele zu melken und Wasser zu finden, eine feste Schule gibt es selten, gelernt wird oft unterwegs.",
+
+    "marokko_stadt_wohlhabend": "Du wohnst mit deiner Familie in einem prächtigen Riad mit Innenhof, Springbrunnen und Orangenbäumen mitten in der Medina von Marrakesch. Ein Fahrer bringt dich zu deiner zweisprachigen Privatschule, am Nachmittag lernst du Reiten in einem privaten Club.",
+    "marokko_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung nahe dem großen Souk von Marrakesch. Du gehst zu Fuß mit Freunden zur staatlichen Schule, dein Vater betreibt eine kleine Werkstatt für Lederwaren im Souk.",
+    "marokko_stadt_einfach": "Deine Familie lebt in einem einfachen Haus am Rand der Medina. Nach der Schule hilfst du deinem Vater beim Färben von Leder in den berühmten Gerbereien, wo es streng, aber auch faszinierend riecht.",
+    "marokko_land_wohlhabend": "Deine Familie besitzt ein großes Anwesen mit Olivenhainen und einer Argan-Ölproduktion am Fuß des Atlas-Gebirges. Du wirst jeden Morgen ins Tal zur Schule gefahren, während viele andere Kinder den steilen Bergpfad zu Fuß nehmen.",
+    "marokko_land_mittelschicht": "Deine Familie hütet eine kleine Herde Ziegen und besitzt ein solides Steinhaus mit Blick auf die schneebedeckten Gipfel. Du gehst mit deinen Geschwistern zur Dorfschule, an manchen Tagen über eine Stunde zu Fuß.",
+    "marokko_land_einfach": "Schon vor der Schule hilfst du, die Ziegen auf die Weide zu treiben und Wasser von der Quelle zu holen. Der Schulweg führt über einen steinigen Bergpfad, oft in Sandalen, egal ob es regnet oder die Sonne brennt.",
+
+    "oman_stadt_wohlhabend": "Deine Familie lebt in einem Haus mit Meerblick in Maskat, ein Fahrer bringt dich zur internationalen Schule, am Wochenende tauchst du in klarem Wasser.",
+    "oman_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Maskat, du gehst zu Fuß zur Schule, dein Vater arbeitet im Hafen.",
+    "oman_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Maskats, der Schulweg führt an der Küste entlang, danach hilfst du am Fischstand deiner Familie.",
+    "oman_land_wohlhabend": "Deine Familie besitzt Terrassenfelder mit Granatapfel- und Rosenanbau im Hadschar-Gebirge und ein schönes Haus, du wirst ins Tal zur Schule gefahren.",
+    "oman_land_mittelschicht": "Deine Familie bewirtschaftet Terrassenfelder in den Bergen und lebt in einem soliden Steinhaus, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "oman_land_einfach": "Schon früh hilfst du beim Bewässern der Terrassenfelder über das alte Falaj-Kanalsystem, der Schulweg führt steil bergab und wieder bergauf.",
+
+    "palaestina_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in Ramallah, ein Fahrer bringt dich zur zweisprachigen Privatschule, am Nachmittag hast du Musikunterricht.",
+    "palaestina_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Ramallah, du gehst mit Freunden zu Fuß zur Schule, deine Eltern arbeiten im Büro und als Lehrerin.",
+    "palaestina_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel, der Schulweg führt über steile Gassen, danach hilfst du in der kleinen Bäckerei deiner Familie.",
+    "palaestina_land_wohlhabend": "Deine Familie besitzt große Olivenhaine am Rand des Dorfes und ein komfortables Steinhaus, du wirst zur Schule in die nächste Stadt gefahren.",
+    "palaestina_land_mittelschicht": "Deine Familie bewirtschaftet einen Olivenhain und lebt in einem soliden Haus, jeden Herbst hilft die ganze Familie bei der Olivenernte.",
+    "palaestina_land_einfach": "Schon früh hilfst du bei der Olivenernte auf den Feldern der Familie, der Schulweg führt über steinige Pfade zwischen den Terrassen.",
+
+    "katar_stadt_wohlhabend": "Deine Familie lebt in einer Villa in Doha mit Blick auf die Skyline, ein Fahrer bringt dich zur internationalen Schule, am Wochenende reitest du Falken vor.",
+    "katar_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Doha, du fährst mit dem Schulbus, dein Vater arbeitet in der Gasindustrie.",
+    "katar_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Dohas, zur Schule fährst du mit einem vollen Bus, danach hilfst du im Laden deines Onkels.",
+    "katar_land_wohlhabend": "Deine Familie besitzt ein großes Wüstencamp mit Kamelen für Rennen und ein Haus in der Stadt, du wirst weit zur Schule gefahren.",
+    "katar_land_mittelschicht": "Deine Familie hält Kamele und verbringt viele Wochenenden in der Wüste, du besuchst eine Schule in der nächsten Kleinstadt.",
+    "katar_land_einfach": "Schon früh hilfst du, die Kamele deiner Familie zu versorgen, der Schulweg führt weit durch den Sand.",
+
+    "saudi_stadt_wohlhabend": "Deine Familie lebt in einer Villa mit Pool in einem gesicherten Wohnkomplex in Riad. Ein Fahrer bringt dich zu deiner internationalen Schule, am Wochenende hast du Falknerei- oder Reitunterricht.",
+    "saudi_stadt_mittelschicht": "Deine Familie lebt in einer geräumigen Wohnung in Riad. Du fährst mit einem Fahrgemeinschafts-Auto zur Schule, während dein Vater im Büro und deine Mutter als Ärztin arbeitet.",
+    "saudi_stadt_einfach": "Deine Familie lebt in einem einfachen Haus am Stadtrand von Riad. Zur Schule fährst du mit einem vollen Bus, danach hilfst du oft im kleinen Lebensmittelladen deines Onkels.",
+    "saudi_land_wohlhabend": "Deine Familie besitzt eine große Kamelherde und mehrere Geländewagen und lebt in einem komfortablen Haus am Rand der Wüste. Du wirst weit in die nächste Stadt zur Schule gefahren.",
+    "saudi_land_mittelschicht": "Deine Familie züchtet Kamele und Ziegen und lebt in einem festen Haus, das im Sommer für ein paar Wochen gegen ein traditionelles Beduinenzelt getauscht wird. Ein Schulbus holt dich morgens an einem Sammelpunkt in der Wüste ab.",
+    "saudi_land_einfach": "Schon im Morgengrauen hilfst du, die Kamele und Ziegen zur Weide zu treiben. Danach läufst du ein gutes Stück durch den Sand, um den Schulbus an der Hauptstraße zu erreichen.",
+
+    "somalia_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in Mogadischu nahe dem Meer, ein Fahrer bringt dich zur Privatschule.",
+    "somalia_stadt_mittelschicht": "Deine Familie lebt in einem Haus in Mogadischu, du gehst zu Fuß zur Schule, dein Vater arbeitet im Hafen, deine Mutter im Handel.",
+    "somalia_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Mogadischus, der Schulweg führt über staubige Straßen, danach hilfst du am Marktstand deiner Familie.",
+    "somalia_land_wohlhabend": "Deine Familie besitzt eine große Kamel- und Ziegenherde und ein festes Haus, du wirst zur Schule in die nächste Stadt gefahren.",
+    "somalia_land_mittelschicht": "Deine Familie zieht mit einer mittelgroßen Herde durch das Weideland, ein Wanderlehrer unterrichtet dich mehrmals pro Woche unter einem großen Baum.",
+    "somalia_land_einfach": "Schon im Morgengrauen hilfst du, die Herde zu den Wasserstellen zu treiben, eine feste Schule gibt es selten, gelernt wird oft von den Ältesten.",
+
+    "sudan_stadt_wohlhabend": "Deine Familie lebt in einem großen Haus in Khartum, dort wo sich der Weiße und der Blaue Nil vereinen, ein Fahrer bringt dich zur Privatschule.",
+    "sudan_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Khartum, du gehst zu Fuß zur Schule, deine Eltern arbeiten im Büro und auf dem Markt.",
+    "sudan_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Khartums, der Schulweg führt über staubige Straßen, danach hilfst du am Teestand deiner Mutter.",
+    "sudan_land_wohlhabend": "Deine Familie besitzt große Felder am Nilufer und ein solides Haus, du wirst zur Schule in die nächste Stadt gefahren.",
+    "sudan_land_mittelschicht": "Deine Familie bewirtschaftet ein Stück Land am Nil und lebt in einem gemauerten Haus, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "sudan_land_einfach": "Schon früh hilfst du, Wasser vom Nil zu holen und die Felder zu bewässern, der Schulweg führt über staubige Pfade.",
+
+    "syrien_stadt_wohlhabend": "Deine Familie lebt in einem schönen Haus mit Innenhof in der Altstadt von Damaskus, einer der ältesten durchgehend bewohnten Städte der Welt, ein Fahrer bringt dich zur Schule.",
+    "syrien_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Damaskus, du gehst mit Freunden zu Fuß zur Schule, dein Vater arbeitet im großen Souk.",
+    "syrien_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel von Damaskus, der Schulweg führt über enge Gassen, danach hilfst du am kleinen Stand deiner Familie.",
+    "syrien_land_wohlhabend": "Deine Familie besitzt Obstgärten im fruchtbaren Umland von Damaskus und ein solides Haus, du wirst zur Schule gefahren.",
+    "syrien_land_mittelschicht": "Deine Familie bewirtschaftet einen kleinen Obst- und Olivengarten und lebt in einem soliden Haus, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "syrien_land_einfach": "Schon früh hilfst du bei der Ernte von Aprikosen oder Oliven auf dem Feld der Familie, der Schulweg führt über staubige Landstraßen.",
+
+    "tunesien_stadt_wohlhabend": "Deine Familie lebt in einem eleganten Haus im Vorort La Marsa nahe Tunis, ein Fahrer bringt dich zur zweisprachigen Privatschule.",
+    "tunesien_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Tunis, du gehst zu Fuß zur Schule, deine Eltern arbeiten im Büro und im Textilhandel.",
+    "tunesien_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel von Tunis, der Schulweg führt durch enge Gassen der Medina, danach hilfst du am Marktstand deiner Familie.",
+    "tunesien_land_wohlhabend": "Deine Familie besitzt eine große Dattelpalmen-Oase in Tozeur am Rand der Sahara und ein komfortables Haus, du wirst zur Schule gefahren.",
+    "tunesien_land_mittelschicht": "Deine Familie bewirtschaftet einen Dattelgarten in der Oase Tozeur, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "tunesien_land_einfach": "Schon früh hilfst du bei der Bewässerung der Palmen in der Oase, der Schulweg führt über heißen Sand bis zur nächsten Schule.",
+
+    "vae_stadt_wohlhabend": "Deine Familie lebt in einer Luxuswohnung mit Blick auf den Burj Khalifa. Ein privater Fahrer bringt dich zur internationalen Schule, am Wochenende hast du Tennis- oder Segelunterricht.",
+    "vae_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in einem belebten Viertel Dubais. Ein Schulbus holt dich morgens ab, während deine Eltern im Handel oder in einem Büro arbeiten.",
+    "vae_stadt_einfach": "Deine Familie lebt in einer einfachen Wohnung in einem Arbeiterviertel am Stadtrand von Dubai. Zur Schule fährst du mit einem vollen Bus, danach hilfst du manchmal am Marktstand deiner Familie.",
+    "vae_land_wohlhabend": "Deine Familie besitzt mehrere Boote für Tauch- und Angeltouren mit Touristen und lebt in einem großen Haus nahe dem Strand. Du wirst zur Schule in die nächste Stadt gefahren und lernst am Wochenende von erfahrenen Perlentauchern.",
+    "vae_land_mittelschicht": "Deine Familie betreibt ein kleines Fischerboot und lebt in einem soliden Haus nahe dem Hafen. Du gehst zu Fuß mit Freunden zur Schule und hilfst nachmittags beim Sortieren des Fangs.",
+    "vae_land_einfach": "Schon früh am Morgen hilfst du deinem Vater, die Fischernetze für den Tag vorzubereiten. Danach legst du den langen Schulweg im warmen Sand zurück.",
+
+    "jemen_stadt_wohlhabend": "Deine Familie lebt in einem traditionellen Turmhaus aus Lehm im historischen Zentrum von Sanaa, ein Fahrer bringt dich zur Privatschule.",
+    "jemen_stadt_mittelschicht": "Deine Familie lebt in einer Wohnung in Sanaa, du gehst zu Fuß zur Schule, dein Vater arbeitet im großen Souk der Altstadt.",
+    "jemen_stadt_einfach": "Deine Familie lebt in einem einfachen Viertel Sanaas, der Schulweg führt über steile Gassen, danach hilfst du am Stand deiner Familie.",
+    "jemen_land_wohlhabend": "Deine Familie besitzt weitläufige Terrassenfelder mit Kaffeeanbau im Hochland und ein solides Steinhaus, du wirst zur Schule gefahren.",
+    "jemen_land_mittelschicht": "Deine Familie bewirtschaftet Terrassenfelder in den Bergen und lebt in einem einfachen Steinhaus, du gehst mit deinen Geschwistern zur Dorfschule.",
+    "jemen_land_einfach": "Schon früh hilfst du beim Bewässern der steilen Terrassenfelder, der Schulweg führt über schmale Bergpfade, oft mehr als eine Stunde."
+  };
+
+  // ---- TAG-Baustein ----
+  const tagStories = {
+    "schultag": "Heute ist ein ganz gewöhnlicher Schultag. In der Pause isst du mit deinen Mitschülern ein Manakish (Fladenbrot mit Za'atar oder Käse) oder ein Falafel-Sandwich, während ihr über die Hausaufgaben lästert.",
+    "fest": "Heute ist ein besonderer Tag: Im ganzen Ort wird ein Fest gefeiert, sei es das Ende des Ramadan (Eid al-Fitr), eine Hochzeit oder ein nationaler Feiertag. Die Straßen sind mit bunten Lichtern geschmückt, es duftet nach Baklava und gegrilltem Fleisch, überall erklingt Musik von Oud und Trommeln.",
+    "ferien": "Heute ist ein freier Tag mitten in den Sommerferien. Kein Wecker, keine Hausaufgaben, nur Zeit, um draußen mit Freunden zu spielen, bis die Nachmittagshitze zu stark wird und alle sich in den Schatten zurückziehen."
+  };
+
+  // ---- HOBBY-Baustein ----
+  const hobbyStories = {
+    "fussball": "Deine große Leidenschaft ist Fußball. Fußball ist in der gesamten arabischen Welt einer der beliebtesten Sportarten überhaupt, sobald es die Zeit erlaubt, spielst du mit Freunden auf jedem freien Fleckchen Erde, manchmal träumst du sogar von einer Karriere als Profi.",
+    "tanz": "Am liebsten tanzt und musizierst du. Ob die energiegeladene Dabke, bei der sich alle im Kreis an den Händen halten, oder die Klänge der Oud, wenn die Musik beginnt, kannst du einfach nicht stillstehen.",
+    "kunst": "Deine Leidenschaft ist das Kunsthandwerk. Mit Ton, Fäden oder feinem Pinsel gestaltest du kleine Kunstwerke, wie geometrische Mosaike, gewebte Teppiche oder kunstvolle arabische Kalligrafie, eine Handwerkskunst, die seit Jahrhunderten weitergegeben wird.",
+    "kochen": "Am glücklichsten bist du in der Küche. Du liebst es, mit deiner Familie kleine Mezze-Schälchen vorzubereiten, Teig für Baklava hauchdünn auszurollen oder einen großen Topf für ein Familienfest zu kochen."
+  };
+
+  // ---- KRASSE FAKTEN pro Land (alle 22) ----
+  const countryFacts = {
+    algerien: "Algerien ist mit rund 2,38 Millionen km² das flächenmäßig größte Land Afrikas und der arabischen Welt, über 80% der Fläche sind Sahara-Wüste.",
+    bahrain: "Bahrain ist ein Inselstaat und mit knapp 780 km² eines der kleinsten Länder der Welt, jahrhundertelang war es berühmt für seine Naturperlen.",
+    komoren: "Die Komoren bestehen aus mehreren Vulkaninseln im Indischen Ozean, hier wird rund 80% des weltweiten Ylang-Ylang für Parfüm angebaut.",
+    dschibuti: "Der Assal-See in Dschibuti liegt etwa 155 Meter unter dem Meeresspiegel und ist der tiefste Punkt Afrikas, sein Wasser ist fast zehnmal salziger als das Meer.",
+    aegypten: "Die Pyramiden von Gizeh sind über 4500 Jahre alt und das einzige der sieben antiken Weltwunder, das heute noch fast vollständig erhalten ist.",
+    irak: "Im Zweistromland zwischen Euphrat und Tigris entstand vor über 5000 Jahren eine der ersten Hochkulturen der Menschheit, hier wurde vermutlich auch die Schrift erfunden.",
+    jordanien: "Die Felsenstadt Petra wurde vor über 2000 Jahren direkt aus rosafarbenem Sandstein gehauen, das Tote Meer an Jordaniens Grenze liegt an der tiefsten Landstelle der Erde.",
+    kuwait: "Kuwait besitzt eines der größten Ölvorkommen der Welt, der Al-Hamra-Turm in Kuwait-Stadt zählt mit seiner unregelmäßig gedrehten Form zu den höchsten Betongebäuden der Welt.",
+    libanon: "Die Zeder ist das Nationalsymbol des Libanon und ziert die Flagge, manche der übrig gebliebenen Zedern im Gebirge sind über 1000 Jahre alt.",
+    libyen: "Die Oasenstadt Ghadames in Libyen wird wegen ihrer engen, überdachten Gassen und Lehmhäuser 'Perle der Wüste' genannt und gehört zum UNESCO-Weltkulturerbe.",
+    mauretanien: "Die 'Augen der Sahara' (Richat-Struktur) in Mauretanien sind eine riesige, ringförmige Felsformation, die sogar aus dem Weltall gut zu erkennen ist.",
+    marokko: "Die Stadt Chefchaouen in Marokko ist komplett in leuchtendem Blau gestrichen, Marokko besitzt außerdem sowohl eine Atlantik- als auch eine Mittelmeerküste.",
+    oman: "Oman betreibt seit über 1500 Jahren das Falaj-Bewässerungssystem, ein Netzwerk aus unterirdischen Kanälen, das Wasser aus den Bergen in die Oasen leitet, teils UNESCO-Welterbe.",
+    palaestina: "Der Olivenbaum ist ein zentrales Symbol der palästinensischen Kultur, manche Olivenbäume im Westjordanland sind mehrere hundert Jahre alt und werden noch heute jeden Herbst geerntet.",
+    katar: "Katar hat eine der weltweit höchsten Konzentrationen an Erdgasvorkommen und war 2022 das erste arabische und nahöstliche Land, das eine Fußball-Weltmeisterschaft ausrichtete.",
+    saudi: "Die Rub al-Khali ist mit über 650.000 km² die größte zusammenhängende Sandwüste der Welt, größer als Frankreich.",
+    somalia: "Somalia hat mit über 3300 km die längste Festlandküste Afrikas, das Land wird oft das 'Horn von Afrika' genannt, weil seine Form an ein Tierhorn erinnert.",
+    sudan: "In Sudan gibt es mehr Pyramiden als in Ägypten, über 200 kleinere, spitzere Pyramiden aus der Zeit des Königreichs Kusch stehen bei Meroe.",
+    syrien: "Damaskus gilt als eine der ältesten durchgehend bewohnten Städte der Welt, hier wird seit über 5000 Jahren ohne Unterbrechung gelebt.",
+    tunesien: "In der Oasenstadt Tozeur wachsen seit Jahrhunderten Dattelpalmen der Sorte Deglet Nour, die als 'Finger des Lichts' gilt und zu den süßesten Dattelsorten der Welt zählt.",
+    vae: "Der Burj Khalifa in Dubai ist mit 828 Metern das höchste von Menschen gebaute Gebäude der Welt, so hoch wie mehr als 160 übereinandergestapelte Doppeldeckerbusse.",
+    jemen: "Die Altstadt von Sanaa ist für ihre jahrhundertealten Turmhäuser aus Lehmziegeln mit kunstvollen weißen Gipsverzierungen bekannt und gehört zum UNESCO-Weltkulturerbe."
+  };
+
+  const resultEmojis = {
+    algerien: '🏜️', bahrain: '🦪', komoren: '🌋', dschibuti: '🐫', aegypten: '🐫',
+    irak: '🌾', jordanien: '🏛️', kuwait: '🛢️', libanon: '🌲', libyen: '🏜️',
+    mauretanien: '🐫', marokko: '🕌', oman: '⛵', palaestina: '🫒', katar: '🏗️',
+    saudi: '🏜️', somalia: '🐪', sudan: '🔺', syrien: '🕌', tunesien: '🌴',
+    vae: '🌆', jemen: '🧱'
+  };
+
+  const countryNames = Object.fromEntries(countries.map(c => [c.key, c.flag + ' ' + c.name]));
+
+  const locationLabels = {};
+  Object.keys(locations).forEach(landKey => {
+    locations[landKey].forEach(loc => { locationLabels[landKey + '_' + loc.key] = loc.icon + ' ' + loc.label; });
+  });
+
+  const order = ['land', 'gender', 'ort', 'leben', 'tag', 'hobby'];
+
+  function renderCountryGrid() {
+    const grid = document.getElementById('countryGrid');
+    grid.innerHTML = '';
+    countries.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'choice-card';
+      div.onclick = () => select('land', c.key);
+      div.innerHTML = `<div class="icon">${c.flag}</div><div class="label">${c.name}</div>`;
+      grid.appendChild(div);
+    });
+  }
+
+  function renderLocationGrid() {
+    const grid = document.getElementById('locationGrid');
+    grid.innerHTML = '';
+    const opts = locations[state.land] || [];
+    opts.forEach(loc => {
+      const div = document.createElement('div');
+      div.className = 'choice-card';
+      div.onclick = () => select('ort', loc.key);
+      div.innerHTML = `<div class="icon">${loc.icon}</div><div class="label">${loc.label}</div><div class="sublabel">${loc.sub}</div>`;
+      grid.appendChild(div);
+    });
+  }
+
+  function goToStep(step) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    if (step === 0) {
+      document.getElementById('screen-welcome').classList.add('active');
+      document.getElementById('progressWrap').style.display = 'none';
+    } else if (step >= 1 && step <= TOTAL_STEPS) {
+      if (step === 1) renderCountryGrid();
+      if (step === 3) renderLocationGrid();
+      document.getElementById('screen-' + step).classList.add('active');
+      document.getElementById('progressWrap').style.display = 'flex';
+      updateProgress(step);
+    } else if (step === 'result') {
+      document.getElementById('screen-result').classList.add('active');
+      document.getElementById('progressWrap').style.display = 'none';
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function updateProgress(step) {
+    for (let i = 1; i <= TOTAL_STEPS; i++) {
+      const dot = document.getElementById('dot' + i);
+      if (i < step) dot.classList.add('done');
+      else dot.classList.remove('done');
+    }
+  }
+
+  function select(key, value) {
+    state[key] = value;
+    const idx = order.indexOf(key);
+    const nextStep = idx + 2;
+    if (nextStep <= TOTAL_STEPS) {
+      updateProgress(nextStep);
+      goToStep(nextStep);
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    const baseKey = state.land + '_' + state.ort + '_' + state.leben;
+    const base = baseStories[baseKey] || "Deine Geschichte wird noch geschrieben.";
+    const tagText = tagStories[state.tag];
+    const hobbyText = hobbyStories[state.hobby];
+
+    document.getElementById('resultEmoji').textContent = resultEmojis[state.land] || '🕌';
+    document.getElementById('resultTitle').textContent = 'Dein Alltag in ' + countryNames[state.land].split(' ').slice(1).join(' ');
+
+    const tagLabels = {
+      gender: { maedchen: '👧 Mädchen', junge: '👦 Junge' },
+      leben: { wohlhabend: '💎 Wohlhabend', mittelschicht: '🏡 Mittelschicht', einfach: '🌾 Einfache Verhältnisse' },
+      tag: { schultag: '🏫 Schultag', fest: '🎉 Fest', ferien: '☀️ Ferien' },
+      hobby: { fussball: '⚽ Fußball', tanz: '🪘 Musik & Tanz', kunst: '🎨 Kunsthandwerk', kochen: '🍲 Kochen' }
+    };
+
+    const tagsContainer = document.getElementById('resultTags');
+    tagsContainer.innerHTML = '';
+    [
+      countryNames[state.land],
+      tagLabels.gender[state.gender],
+      locationLabels[state.land + '_' + state.ort],
+      tagLabels.leben[state.leben],
+      tagLabels.tag[state.tag],
+      tagLabels.hobby[state.hobby]
+    ].forEach(label => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = label;
+      tagsContainer.appendChild(span);
+    });
+
+    const textContainer = document.getElementById('resultText');
+    textContainer.innerHTML = '';
+    [base, tagText, hobbyText].forEach(txt => {
+      const p = document.createElement('p');
+      p.textContent = txt;
+      textContainer.appendChild(p);
+    });
+
+    document.getElementById('factText').textContent = countryFacts[state.land];
+
+    goToStep('result');
+  }
+
+  function resetApp() {
+    state.land = null;
+    state.gender = null;
+    state.ort = null;
+    state.leben = null;
+    state.tag = null;
+    state.hobby = null;
+    goToStep(0);
+  }
+</script>
+
+</body>
+</html>
